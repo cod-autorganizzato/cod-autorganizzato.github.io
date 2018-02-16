@@ -1,0 +1,88 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Untitled Document</title>
+<script src="https://d3js.org/d3.v4.min.js"></script>
+<link href="css/layout.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+<script src="js/jquery.fittext.js"></script>
+</head>
+<body>
+<div class="bodyContainer">
+<div class="link" id="link">
+  <div class="panelPadding">
+	  <p>Lista dei link</p>
+	  </div>
+</div>
+<div class="mappa" id="mappa">
+<div class="panelPadding">
+  <p>Mappa</p>
+ </div>
+</div>
+<div class="numeri" id="numeri">
+  <div class="numeri1">
+    <div class="panelPadding">    
+    <p>12</p>
+</div>
+  </div>
+  <div class="numeri2">
+    <div class="panelPadding">    
+    <p>12</p
+    ></div>
+</div>
+<div class="numeri3">
+  <div class="panelPadding">    
+  <p>12</p>
+</div>
+</div>
+</div>
+<div class="grafico" id="grafico">
+	<div class="panelPadding"><p>Grafico temporale</p></div>
+</div>
+<div class="liste" id="liste">
+  <div class="panelPadding">
+    <p>Lista città coinvolte</p>
+  </div>
+</div>
+<div class="controlli1" id="controlli1">
+	<div class="panelPadding"><p>Controlli</p></div>
+</div>
+<div class="controlli2" id="controlli2">
+  <div class="panelPadding">
+    <p>Controlli</p>
+  </div>
+</div>
+</div>
+<script>
+  jQuery(".panelPadding").fitText(1, { minFontSize: '10px', maxFontSize: '35px' });
+  jQuery(".mappa").fitText(1, { minFontSize: '15px', maxFontSize: '35px' });
+
+</script>
+<script src="https://d3js.org/d3.v4.min.js"></script>
+<!-- <img src="italia.svg" id="italia"></img> -->
+<!--<script>
+
+d3.xml("IMG/italia.svg", function(xml) {
+  document.body.appendChild(xml.documentElement);
+
+  d3.json("/Data/alfa.json", function(data) {
+    for (var i = 0; i < data.length; i++) {
+      var obj = data[i]
+      var coord = obj.crd
+
+
+      var circle = d3.select("svg").append("circle")
+                .attr("cx", coord[0])
+                .attr("cy", coord[1])
+                .attr("r", 20)
+                .style("fill", "red");
+
+        }
+
+  });
+
+}); -->
+</body>
+</html>
