@@ -1,3 +1,9 @@
+##########################################################################
+######### AFAscript (Aggressioni Fasciste Ancora) V.0.2 by Bast1 #########
+############## - CoDA - Collettivo Digitale Autorganizzato ###############
+################################ GPL v3.0 #################################
+##########################################################################
+
 import pandas
 import urllib
 from bs4 import BeautifulSoup as bs
