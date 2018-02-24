@@ -6,6 +6,9 @@
 
 import meta
 import json
+from bs4 import BeautifulSoup as bs
+import urllib
+
 
 home = "http://www.ecn.org/antifa/article/357/"
 
@@ -31,7 +34,54 @@ if __name__ == '__main__':
     site = urllib.urlopen(home)
     soup = bs(site, 'html.parser')
     soup = str(soup).decode('utf-8','ignore').split('AGGRESSIONI FASCISTE')[-1]
-    data = [info(x).info for x in soup.split('</h3><h3>')]
+    data = [info(x).info for x in soup.split('\n')]
     with open(output +'.json', 'w') as outfile:
         json.dump(data, outfile)
     sys.exit()
+
+
+
+class geoinfo(object):
+    def __init__(self, tag):
+        self.tag = tag
+        self.coord = tag.split('points="')[1].split('">')[0]
+        self._cods = tag.split('id="')[1].split('"')[0].split("-")
+
+    @staticmethod
+    def _centering(coord):
+        lcoord = [[float(x) for x in y.split(',')] for y in coord.split(' ')]
+        x,y=zip(*lcoord)
+        center=round((max(x)+min(x))/2.,2), round((max(y)+min(y))/2.,2)
+        return center
+
+    @property
+    def info(self):
+        info = { "reg" : self._cods[0][5:],
+                 "pro" : self._cods[1][3:],
+                 "com" : self._cods[2][3:],
+                 "pnt" : self._centering(self.coord)
+        }
+        return info
+
+def MetaGeo():
+    home = "http://cdn.dataninja.it/shapes/maps/it/italia_comuni.svg"
+    site = urllib.urlopen(home)
+    soup = bs(site, 'html.parser')
+    soup = str(soup)
+    rawdata    = soup.split("</g>\n")
+    rawdata[0] = rawdata[0].split('comuni">\n')[1]
+    for x in rawdata:
+        if '22084' in x or '65011' in x: rawdata.remove(x)
+    rawdata = rawdata[:8092]
+    geodata = [geoinfo(x).info for x in rawdata]
+    return geodata
+
+def GetCoordinate():
+    istat = pandas.read_excel('/home/bastone/Scaricati/Elenco-comuni-italiani.xls').fillna('NA')
+    Dfcomun = istat[['Codice Comune formato alfanumerico','Denominazione in italiano']].rename(columns={'Codice Comune formato alfanumerico':'com'})
+    Dfcomun['com'] = Dfcomun['com'].map(str)
+    dcoord = MetaGeo()
+    Dfcoord = pandas.DataFrame().from_dict(dcoord)
+    Dfctot  = pandas.merge(Dfcomun, Dfcoord, how='outer')
+    diccrd = dict(zip(Dfctot['Denominazione in italiano'],Dfctot['pnt']))
+    return diccrd
