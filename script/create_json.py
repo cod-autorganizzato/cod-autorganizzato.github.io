@@ -25,7 +25,7 @@ class info(object):
 
         info = {'link': 'http://www.ecn.org' + self.tag.split('href="')[1].split('"')[0],
                 'date': self.tag.split('"#000011"> ')[1].split(' </font')[0],
-                'year': self.tag.split('"#000011"> ')[1].split(' </font')[0],
+                'year': self.tag.split('"#000011"> ')[1].split(' </font')[0].split("-")[-1],
                 'prov': prv,
                 'cit': ctt,
                 'reg': metadata.dicreg[prv],
