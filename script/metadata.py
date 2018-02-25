@@ -13,10 +13,9 @@ import numpy as np
 istat = pandas.read_excel('./meta/Elenco-comuni-italiani.xls').fillna('NA')
 istat['Denominazione provincia'] = np.where(istat['Denominazione provincia']=='-', istat['Denominazione Citta metropolitana'], istat['Denominazione provincia'])
 
-lplce = list(istat['Denominazione in italiano']) + list(istat['Sigla automobilistica'].unique())
+lplce = list(istat['Denominazione in italiano'])
 lplce = [x.lower() for x in lplce]
-lplce.remove('to')
-lplce.remove('-')
+lplce.remove('zone')
 dicprc = dict(zip(istat['Sigla automobilistica'],istat['Denominazione provincia']))
 dicprv = dict(zip(istat['Denominazione in italiano'],istat['Sigla automobilistica']))
 dicprv.update({x.title(): x.upper() for x in dicprc})
