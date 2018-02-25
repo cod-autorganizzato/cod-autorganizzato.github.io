@@ -60,7 +60,7 @@ def GetCoordinate():
     Dfctot  = pandas.merge(Dfcomun, Dfcoord, how='outer')
     diccrd = dict(zip(Dfctot['Denominazione in italiano'],Dfctot['pnt']))
     diccrd['N.A.'] = 'N.A.'
-    diccrd.update({x.title(): diccrd[dicprc[x]] for x in dicprc if dicprc[x] in diccrd})
+    # diccrd.update({x.title(): diccrd[dicprc[x]] for x in dicprc if dicprc[x] in diccrd})
     return diccrd
 
 def MetaGeo():
