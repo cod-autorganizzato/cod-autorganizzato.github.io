@@ -44,10 +44,13 @@ dass = {'fascista' : 'fascista',
 "stranieri" : "xenofoba",
 "straniero" : "xenofoba",
 "extracomunitari" : "xenofoba",
+"negri":"xenofoba",
+"negro":"xenofoba",
 "neofascista" : "fascista",
 "fascisti" : "fascista",
 "neofascisti" : "fascista",
 'skinhead' : "fascista",
+'skinheads': "fascista",
 "destra" : "destra"}
 
 ########### Funzioni Geo ###########
