@@ -39,9 +39,14 @@ class info(object):
 if __name__ == '__main__':
     site = urllib.urlopen(home)
     soup = bs(site, 'html.parser')
+<<<<<<< HEAD
     soup = str(soup).decode('utf-8','ignore').split('AGGRESSIONI FASCISTE')
     soup = soup[-1]
     data = [info(x).info for x in soup.split('</h3><h3>')]
+=======
+    soup = str(soup).decode('utf-8','ignore').split('AGGRESSIONI FASCISTE')[-1]
+    data = [info(x).info for x in soup.split('</h3><h3>')[1:]]
+>>>>>>> 49cd77d97adf2b3d4cab5d1ed413dcc1bed7dc4c
     with open('../JSON/data.json', 'w') as outfile:
         json.dump(data, outfile)
     sys.exit()
