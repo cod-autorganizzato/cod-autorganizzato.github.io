@@ -15,7 +15,8 @@ home = "http://www.ecn.org/antifa/article/357/"
 class info(object):
     def __init__(self,tag):
         self.tag = tag
-        self.wlst =  [x.replace(":", "").replace(".","").replace(",","").replace("-","")  for x in tag.split('href="')[1].split('</b></a>')[0].split(' ')]
+        for sign in [',', '.', '-', ':']: tag = tag.replace(sign, "")
+        self.wlst =  [x for x in tag.split('href="')[1].split('</b></a>')[0].split(' ')]
 
 
     @property
