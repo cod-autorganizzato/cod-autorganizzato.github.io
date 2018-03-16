@@ -1,43 +1,39 @@
 ##########################################################################
 ######### AFAscript (Aggressioni Fasciste Ancora) V.0.2 by Bast1 #########
 ############## - CoDA - Collettivo Digitale Autorganizzato ###############
-################################ GPL v3.0 #################################
+################################ GPL v3.0 ################################
 ##########################################################################
-
 import metadata
 import json
 from bs4 import BeautifulSoup as bs
 import urllib
 import sys
 
-home = "http://www.ecn.org/antifa/article/357/"
-
 class info(object):
+    #the info object take an entry from the site and get
+    #the information out as a dictionary
     def __init__(self,tag):
         self.tag = tag
         for sign in [',', '.', '-', ':']: tag = tag.replace(sign, "")
         self.wlst =  [x for x in tag.split('href="')[1].split('</b></a>')[0].split(' ')]
 
-
     @property
     def info(self):
         ctt = ([x for x in self.wlst if x.lower() in metadata.lplce] + ['N.A.'])[0].title()
         prv = metadata.dicprv[ctt]
-
         info = {'link': 'http://www.ecn.org' + self.tag.split('href="')[1].split('"')[0],
                 'date': self.tag.split('"#000011"> ')[1].split(' </font')[0],
                 'year': self.tag.split('"#000011"> ')[1].split(' </font')[0].split("-")[-1],
-                'prov': prv,
                 'cit': ctt,
+                'prv': prv,
                 'reg': metadata.dicreg[prv],
                 'crd': metadata.diccrd[ctt],
                 'ass': ([metadata.dass[x.lower()] for x in self.wlst if x.lower() in metadata.dass] + ['generico'])[0]}
         return info
 
-
-
-
+    
 if __name__ == '__main__':
+    home = "http://www.ecn.org/antifa/article/357/"
     site = urllib.urlopen(home)
     soup = bs(site, 'html5lib')
     soup = str(soup).decode('utf-8','ignore').split('AGGRESSIONI FASCISTE')[-1]
